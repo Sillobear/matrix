@@ -52,6 +52,131 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T> &rhs){
     }
     rows = new_rows;
     colums = new_cols;
+
+    return *this;
+}
+
+template<typename T>
+bool Matrix<T>::operator==(const Matrix<T> &rhs){
+    if (rows != rhs.rows){
+        return false;
+    }
+    if (colums != rhs.colums){
+        return false;
+    }
+    for (unsigned i=0; i<rows; i++){
+        for (unsigned j=0; j<rows; j++){
+            if(this->mat[i][j] != rhs(i,j)){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::operator+(const Matrix<T> &rhs){
+    Matrix<T> result(rows, colums, 0.0);
+
+    for (unsigned i = 0; i<rows; i++){
+        for (unsigned j = 0; j<colums; j++){
+            result(i,j) = this->mat[i][j] + rhs(i,j);
+        }
+    }
+
+    return result;
+}
+
+template<typename T>
+Matrix<T>& Matrix<T>::operator+=(const Matrix<T> &rhs) {
+    unsigned rows = rhs.get_rows();
+    unsigned cols = rhs.get_columns();
+
+    for (unsigned i = 0; i<rows; i++){
+        for (unsigned j = 0; j<cols; i++){
+            this->mat[i][j] += rhs(i,j);
+        }
+    }
+    return *this;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::operator-(const Matrix<T> &rhs){
+    Matrix<T> result(rows, colums, 0.0);
+
+    for (unsigned i = 0; i<rows; i++){
+        for (unsigned j = 0; j<colums; j++){
+            result(i,j) = this->mat[i][j] - rhs(i,j);
+        }
+    }
+
+    return result;
+}
+
+template<typename T>
+Matrix<T>& Matrix<T>::operator-=(const Matrix<T> &rhs) {
+    unsigned rows = rhs.get_rows();
+    unsigned cols = rhs.get_columns();
+
+    for (unsigned i = 0; i<rows; i++){
+        for (unsigned j = 0; j<cols; i++){
+            this->mat[i][j] -= rhs(i,j);
+        }
+    }
+    return *this;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::operator*(const Matrix<T> &rhs) {
+    unsigned rows = rhs.get_rows();
+    unsigned cols = rhs.get_columns();
+    Matrix<T> result(rows, cols, 0.0);
+
+    for(unsigned i=0;i<rows;i++){
+        for(unsigned j=0;j<cols;j++){
+            for(unsigned k=0;k<rows;k++){
+                result(i,j) += this->mat[i][k] * rhs(k,j);
+            }
+        }
+    }
+
+    return result;
+}
+
+template<typename T>
+Matrix<T>& Matrix<T>::operator*=(const Matrix<T> &rhs){
+    Matrix<T> result = (*this) * rhs;
+    this = result;
+    return *this;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::transpose() {
+    Matrix<T> result(colums, rows, 0.0);
+    for(unsigned i=0;i<rows;i++){
+        for(unsigned j=0;j<colums;j++){
+            result(j,i) = this->mat[i][j];
+        }
+    }
+    return result;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::operator+(const T &rhs) {
+    Matrix<T> result(rows, colums, 0.0);
+    for (unsigned i=0; i<rows; i++){
+        for (unsigned j=0; j<colums; j++){
+            result(i,j) = this->mat[i][j] + rhs;
+        }
+    }
+    return result;
+}
+
+template<typename T>
+Matrix<T>& Matrix<T>::operator+=(const T &rhs) {
+    Matrix<T> result(rows, colums, 0.0);
+    this = result + rhs;
+    return *this;
 }
 
 #endif

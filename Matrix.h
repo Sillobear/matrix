@@ -19,6 +19,7 @@ public:
 
     // Operator overloading
     Matrix<T>& operator=(const Matrix<T> &rhs);
+    bool operator==(const Matrix<T> &rhs);
 
     // Matrix Operations
     Matrix<T> operator+(const Matrix<T> &rhs);
@@ -31,6 +32,7 @@ public:
 
     // Scalar operations
     Matrix<T> operator+(const T &rhs);
+    Matrix<T>& operator+=(const T &rhs);
     Matrix<T> operator-(const T &rhs);
     Matrix<T> operator*(const T &rhs);
     Matrix<T> operator/(const T &rhs);
