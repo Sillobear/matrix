@@ -5,6 +5,7 @@
 #ifndef MATRIX_MATRIX_H
 #define MATRIX_MATRIX_H
 
+#include <stdexcept>
 #include "Matrix.h"
 
 template<typename T>
@@ -177,6 +178,84 @@ Matrix<T>& Matrix<T>::operator+=(const T &rhs) {
     Matrix<T> result(rows, colums, 0.0);
     this = result + rhs;
     return *this;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::operator-(const T &rhs) {
+    Matrix<T> result(rows, colums, 0.0);
+    for (unsigned i =0; i<rows; i++){
+        for (unsigned j=0; j<colums; j++){
+            result(i,j) = this(i,j) - rhs;
+        }
+    }
+    return result;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::operator*(const T &rhs) {
+    Matrix<T> result(rows, colums, 0.0);
+    for (unsigned i =0; i<rows; i++){
+        for (unsigned j=0; j<colums; j++){
+            result(i,j) = this(i,j) * rhs;
+        }
+    }
+    return result;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::operator/(const T &rhs) {
+    Matrix<T> result(rows, colums, 0.0);
+    for (unsigned i =0; i<rows; i++){
+        for (unsigned j=0; j<colums; j++){
+            result(i,j) = this(i,j) / rhs;
+        }
+    }
+    return result;
+}
+
+template<typename T>
+std::vector<T> Matrix<T>::operator*(const std::vector<T> &rhs){
+    std::vector<T> result(rhs.size(), 0.0);
+    for (unsigned i=0;i<rows; i++){
+        for (unsigned j=0;j<colums; j++){
+            result[i] += this->mat[i][j] * rhs[j];
+        }
+    }
+    return result;
+}
+
+template<typename T>
+std::vector<T> Matrix<T>::diag_vec() {
+    if(rows != colums){
+        throw std::invalid_argument("received non quadratic matrix");
+    }
+    std::vector<T> result(rows, 0.0);
+
+    for (unsigned i=0; i<rows; i++) {
+        result[i] = this->mat[i][i];
+    }
+
+    return result;
+}
+
+template<typename T>
+T& Matrix<T>::operator()(const unsigned &row, const unsigned &col){
+    return this->mat[row][col];
+}
+
+template<typename T>
+const T& Matrix<T>::operator()(const unsigned &row, const unsigned &col) const{
+    return this->mat[row][col];
+}
+
+template<typename T>
+unsigned Matrix<T>::get_rows() const {
+    return this->rows;
+}
+
+template<typename T>
+unsigned Matrix<T>::get_columns() const {
+    return this->colums;
 }
 
 #endif
