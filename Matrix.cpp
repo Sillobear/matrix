@@ -2,11 +2,8 @@
 // Created by silas on 24.02.23.
 //
 
-#ifndef MATRIX_MATRIX_H
-#define MATRIX_MATRIX_H
-
-#include <stdexcept>
 #include "Matrix.h"
+#include <stdexcept>
 
 template<typename T>
 Matrix<T>::Matrix(unsigned _rows, unsigned _columns, const T& _initial){
@@ -249,13 +246,11 @@ const T& Matrix<T>::operator()(const unsigned &row, const unsigned &col) const{
 }
 
 template<typename T>
-unsigned Matrix<T>::get_rows() const {
+unsigned int Matrix<T>::get_rows() const {
     return this->rows;
 }
 
 template<typename T>
-unsigned Matrix<T>::get_columns() const {
+unsigned int Matrix<T>::get_columns() const {
     return this->colums;
 }
-
-#endif

@@ -2,10 +2,10 @@
 // Created by silas on 24.02.23.
 //
 
-
+#ifndef MATRIX_MATRIX_H
 #define MATRIX_MATRIX_H
-
 #include <vector>
+
 template <typename T> class Matrix {
 private:
     std::vector<std::vector<T> > mat;
@@ -49,6 +49,6 @@ public:
     unsigned get_rows() const;
     unsigned get_columns() const;
 };
+#endif
 
-#include "Matrix.cpp"
 

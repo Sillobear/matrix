@@ -3,4 +3,4 @@ project(matrix)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(matrix main.cpp Matrix.cpp Matrix.h)
+add_executable(matrix main.cpp Matrix.cpp)
